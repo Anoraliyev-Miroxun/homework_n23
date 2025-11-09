@@ -1,0 +1,18 @@
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+
+}
+
+.b{
+    border: 1px solid red;
+}
