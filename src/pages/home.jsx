@@ -13,7 +13,7 @@ export const Home = () => {
         <>
             <section>
                 <div className="b contianer">
-                    <div className='text-center min-w-[358px] min-h-[300px] rounded-[20px] bg-no-repeat bg-center bg-contain relative tablet:min-w-[728px] min-h-[500px]' style={{ background: `url(${heroBg}),url(${heroBg2})`, backgroundPosition: 'left center, right center' }}>
+                    <div className='text-center min-w-[358px] min-h-[300px] rounded-[20px] bg-no-repeat bg-center bg-cover relative tablet:min-w-[728px] min-h-[500px]' style={{ background: `url(${heroBg})`, backgroundRepeat: "no-repeat",backgroundSize: "cover"}}>
                         <div className='b mt-5 pt-10 tablet:mt-15'>
 
                             <h2 className='text-white  text-[24px] font-semibold mb-1.5 tablet:text-[32px] mb-[10px] desktop:text-[36px]'>Compact cars</h2>
