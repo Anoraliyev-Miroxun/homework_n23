@@ -16,7 +16,9 @@ import sec4Bg from '../assets/icons/sec4-bg.svg';
 import sec5Bg1 from '../assets/icons/sec5-bg1.svg';
 import sec5Bg2 from '../assets/icons/sec5-bg2.svg';
 import sec5Bg3 from '../assets/icons/sec5-bg3.svg';
-import {HomeMalumot} from '../data/homeMalumot.js';
+import { HomeMalumot } from '../data/homeMalumot.js';
+import { HomeMalumod } from './components/homeMalumot.jsx';
+import Section2 from '../components/section2.jsx';
 
 export const Home = () => {
     return (
@@ -26,16 +28,16 @@ export const Home = () => {
             </section>
 
             <section className='mt-[154px] mb-[190px]'>
-                <div className=' b contianer'>
+                <div className=' contianer'>
                     <div className='flex justify-center gap-9'>
                         <div className='w-[682px] rounded-2xl' style={{ backgroundImage: `url(${sectionBg1})`, backgroundRepeat: "no-repeat", backgroundSize: "cover", backgroundPosition: "center" }}>
-                            <div className='b my-[109px]  w-[277px] ml-[55px]'>
+                            <div className=' my-[109px]  w-[277px] ml-[55px]'>
                                 <p className='font-third-family mb-1.5 text-[36px] font-normal text-white'>Natural!!</p>
                                 <h3 className='font-font-family text-[40px] font-bold text-[#fff]'>Get Garden Fresh Fruits</h3>
                             </div>
                         </div>
                         <div className='w-[682px] rounded-2xl' style={{ backgroundImage: `url(${sectionBg2})`, backgroundRepeat: "no-repeat", backgroundSize: "cover", backgroundPosition: "center" }}>
-                            <div className='b my-[109px] w-[277px] ml-[55px]'>
+                            <div className=' my-[109px] w-[277px] ml-[55px]'>
                                 <p className='font-third-family mb-1.5 text-[36px] font-normal text-white'>Natural!!</p>
                                 <h3 className='font-font-family text-[40px] font-bold text-[#fff]'>Get Garden Fresh Fruits</h3>
                             </div>
@@ -44,42 +46,15 @@ export const Home = () => {
                 </div>
             </section>
 
-            <section>
-                <div className='mb-[176px]' style={{ backgroundImage: `url(${section2Bg})`, backgroundRepeat: "no-repeat", backgroundSize: "cover", backgroundPosition: "center" }}>
-                    <div className='contianer b'>
-                        <div className=' b  mt-[186px] mb-[199px] w-[702px] h-auto ml-[800px]'>
-                            <div>
-                                <p className='font-third-family mb-2 text-[36px] font-normal text-yashil'>About Us</p>
-                                <h3 className='font-font-family text-[50px] font-extrabold text-qoraroq'>We Believe in Working Accredited Farmers</h3>
-                                <p className='font-second-family leading-[165%] mt-[14px] text-[18px] font-normal text-qoraroq'>Simply dummy text of the printing and typesetting industry. Lorem had ceased to been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley.</p>
-                            </div>
 
-                            <div className='mt-[46px] w-[568px]'>
-                                <div className='flex'>
-                                    {<Sec2Icon />}
-                                    <div className='ml-[19px]'>
-                                        <h3 className='font-font-family font-extrabold text-[25px] text-qoraroq'>Organic Foods Only</h3>
-                                        <p className='font-font-family font-normal text-[18px] leading-[165%]'>Simply dummy text of the printing and typesetting industry. Lorem Ipsum</p>
-                                    </div>
-                                </div>
-
-                                <div className='flex mt-[30px] mb-[46px]'>
-                                    {<Sec2Icon2 />}
-                                    <div className='ml-[19px]'>
-                                        <h3 className='font-font-family font-extrabold text-[25px] text-qoraroq'>Quality Standards</h3>
-                                        <p className='font-font-family font-normal text-[18px] leading-[165%]'>Simply dummy text of the printing and typesetting industry. Lorem Ipsum</p>
-                                    </div>
-                                </div>
-
-                                <CustomButton>Shop Now</CustomButton>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <Section2 bgImage={section2Bg} topTitle={"About Us"} features={[
+           {icon:<Sec2Icon />,title:"Organic Foods Only",text:"Simply dummy text of the printing and typesetting industry. Lorem Ipsum"},
+           {icon:<Sec2Icon2 />,title:"Quality Standards",text:"Simply dummy text of the printing and typesetting industry. Lorem Ipsum"}
+            ]} />
+           
 
             <section>
-                <div className='b contianer'>
+                <div className='contianer'>
                     <div className='items-center'>
                         <div className='text-center mb-10'>
                             <p className='font-normal text-[36px] font-third-family text-yashil'>Categories </p>
@@ -92,16 +67,16 @@ export const Home = () => {
                                 })
                             }
                         </div>
-                        <div className='flex justify-center b'><CustomButton>Load More</CustomButton></div>
+                        <div className='flex justify-center'><CustomButton>Load More</CustomButton></div>
                     </div>
                 </div>
             </section>
 
             <section className='mt-[200px]'>
                 <div className='' style={{ backgroundImage: `url(${sec3Bg})`, backgroundRepeat: "no-repeat", backgroundSize: "cover", backgroundPosition: "center" }}>
-                    <div className='contianer b flex justify-center'>
-                        <div className='w-[1108px] b my-[164px]  flex flex-col items-center '>
-                            <div className='text-center w-[780px]  b'>
+                    <div className='contianer  flex justify-center'>
+                        <div className='w-[1108px] my-[164px]  flex flex-col items-center '>
+                            <div className='text-center w-[780px]'>
                                 <div className='mb-[60px]'>
                                     <p className='font-third-family text-[36px] font-normal text-yashil mb-2'>Testimonial</p>
                                     <h2 className='text-[50px] font-extrabold text-qoraroq font-font-family'>What Our Customer Saying?</h2>
@@ -133,7 +108,7 @@ export const Home = () => {
                                 <p className='font-third-family text-[36px] font-normal text-yashil'>Offer</p>
                                 <h2 className='font-font-family text-[50px] font-extrabold text-white'>We Offer Organic For You</h2>
                             </div>
-                            <div><CustomButton >View All Product</CustomButton></div>
+                            <div><CustomButton className='border border-amber-50'>View All Product</CustomButton></div>
                         </div>
                         <div className='grid grid-cols-4 gap-5 mt-[50px]'>
                             {
@@ -150,14 +125,14 @@ export const Home = () => {
                 <div className='contianer'>
                     <div className='flex'>
                         <div  >
-                            <img className='b' src={sec4Bg} alt="" />
+                            <img className='' src={sec4Bg} alt="" />
                         </div>
 
                         <div>
 
                             <div className='relative'>
-                                <div className='w-[789px] b py-[70px] px-[85px] bg bg-white absolute -left-[152px] top-20 rounded-[30px]'>
-                                    <div className='b'>
+                                <div className='w-[789px] py-[70px] px-[85px] bg bg-white absolute -left-[152px] top-20 rounded-[30px]'>
+                                    <div className=''>
                                         <div>
                                             <p className='text-[36px] font-normal font-third-family mb-2'>Eco Friendly</p>
                                             <h2 className='text-[50px] font-extrabold font-font-family mb-[35px]'>Econis is a Friendly Organic Store</h2>
@@ -191,15 +166,15 @@ export const Home = () => {
                     <div className='contianer'>
                         <div className='flex justify-between gap-7 py-[187px]'>
                             <div className='py-[244px] px-[146px] flex flex-col justify-center items-center' style={{ backgroundImage: `url(${sec5Bg1})`, backgroundRepeat: "no-repeat", backgroundSize: "cover", backgroundPosition: "center" }}>
-                                <CustomButton className=' !text-black bg-white hover:bg-qoraroq hover:!text-white'>Organic Juice</CustomButton>
+                                <CustomButton showArrow={false} className=' !text-black bg-white hover:bg-qoraroq hover:!text-white'>Organic Juice</CustomButton>
                             </div>
 
                             <div className='py-[244px] px-[146px] flex flex-col justify-center items-center' style={{ backgroundImage: `url(${sec5Bg2})`, backgroundRepeat: "no-repeat", backgroundSize: "cover", backgroundPosition: "center" }}>
-                                <CustomButton className=' !text-black bg-white hover:bg-qoraroq hover:!text-white'>Organic Food</CustomButton>
+                                <CustomButton showArrow={false} className=' !text-black bg-white hover:bg-qoraroq hover:!text-white'>Organic Food</CustomButton>
                             </div>
 
                             <div className='py-[244px] px-[146px] flex flex-col justify-center items-center' style={{ backgroundImage: `url(${sec5Bg3})`, backgroundRepeat: "no-repeat", backgroundSize: "cover", backgroundPosition: "center" }}>
-                                <CustomButton className=' !text-black bg-white hover:bg-qoraroq hover:!text-white'>Nuts Cookis</CustomButton>
+                                <CustomButton showArrow={false} className=' !text-black bg-white hover:bg-qoraroq hover:!text-white'>Nuts Cookis</CustomButton>
                             </div>
                         </div>
                     </div>
@@ -207,7 +182,7 @@ export const Home = () => {
             </section>
 
             <section>
-                <div className='contianer'>
+                <div className='contianer pt-[177px] pb-[185px]'>
                     <div>
                         <div className='flex justify-between items-center gap-5 mb-12'>
                             <div className='w-[702px]'>
@@ -217,12 +192,12 @@ export const Home = () => {
 
                             <CustomButton>More News</CustomButton>
                         </div>
-                        <div>
-                          {
-                            HomeMalumot.slice(0,2).map((i)=>{
-                                return <HomeMalumot key={i.id} nomi={i.nomi} kim={i.kim} sanasi={i.sanasi} bg={i.bg} text={i.text} oy={i.oy} />
-                            })
-                          }
+                        <div className='grid grid-cols-2 '>
+                            {
+                                HomeMalumot.slice(0, 2).map((i) => {
+                                    return <HomeMalumod key={i.id} id={i.id} nomi={i.nomi} kim={i.kim} sanasi={i.sanasi} bg={i.bg} text={i.text} oy={i.oy} />
+                                })
+                            }
                         </div>
                     </div>
                 </div>
@@ -234,3 +209,4 @@ export const Home = () => {
 
     )
 }
+
