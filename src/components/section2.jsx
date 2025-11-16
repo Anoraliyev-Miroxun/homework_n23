@@ -27,7 +27,7 @@ const Section2 = ({
         className="mb-20 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${bgImage})` }}
       >
-        <div className="container mx-auto px-4 ">
+        <div className="container mx-auto px-4">
           <div className="py-20 lg:py-40 max-w-[700px] w-full lg:ml-auto">
 
             {/* Title */}

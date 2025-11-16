@@ -1,5 +1,5 @@
 import img from '../assets/minaCardImg.png';
- 
+
 
 export const homeCardData = [
     {
@@ -92,6 +92,32 @@ export const homeCardData = [
         yulduzlarSoni: 5,
         category: "Fresh"
     },
-
+    {
+        id: 11,
+        image: img,
+        nomi: "White Nuts",
+        eskiNarxi: 20,
+        yangiNarxi: 15,
+        yulduzlarSoni: 5,
+        category: "Nuts"
+    },
+    {
+        id: 12,
+        image: img,
+        nomi: "White Nuts",
+        eskiNarxi: 20,
+        yangiNarxi: 15,
+        yulduzlarSoni: 5,
+        category: "Fresh"
+    },
+    {
+        id: 13,
+        image: img,
+        nomi: "White Nuts",
+        eskiNarxi: 20,
+        yangiNarxi: 15,
+        yulduzlarSoni: 5,
+        category: "Fresh"
+    },
 ]
 
