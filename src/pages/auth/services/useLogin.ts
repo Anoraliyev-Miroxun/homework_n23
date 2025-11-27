@@ -5,6 +5,6 @@ import type {LoginT,LotinResponse} from '../types.ts';
 
 export const useLogin=()=>{
     return useMutation({
-        mutationFn:(data:LoginT)=>request.post<LotinResponse>("/auth/signin",data).then((res)=>res.data)
+        mutationFn:(data:LoginT)=>request.post<LotinResponse>("/auth/signin",data,{withCredentials:true}).then((res)=>res.data)
     })
 }

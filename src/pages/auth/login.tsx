@@ -67,7 +67,7 @@ export const Login = () => {
                     position: "bottom-right"
                 });
 
-                navigate(`/app/${res.data.user.role.toLowerCase()}`)
+                navigate(`${res.data.user.role.toLowerCase()}`)
             },
             onError: (error) => {
                 console.log(error)
