@@ -1,5 +1,5 @@
 
-import { Calendar, Home, Inbox, Search, Settings,Camera } from "lucide-react" 
+import { Calendar, Home, Inbox, Search, Settings,Camera, Group } from "lucide-react" 
 
 export const links={
     admin: [
@@ -12,6 +12,11 @@ export const links={
         title: "Teachers",
         url: "/app/admin/teachers",
         icon: Inbox,
+    },
+    {
+        title: "Groups",
+        url: "/app/admin/groups",
+        icon: Group,
     },
     {
         title: "Calendar",

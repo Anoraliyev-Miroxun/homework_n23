@@ -18,6 +18,11 @@ import {
 } from "@/components/ui/dialog";
 import { TeacherFormEdit } from '../components/teacherFormEdit.tsx';
 import { TeacherForm } from '../components/createFormCreate.tsx';
+import { useTeacherDetail } from '../services/quvery/useTeacherDiteail.ts';
+import { useDeleteTeacher } from '../services/mutation/useDeleteTeacher.ts';
+import { toast } from 'sonner';
+import { useQueryClient } from '@tanstack/react-query';
+import { TeacherFormWrapper } from '../components/teacherWrapperForm.tsx';
 
 type Payment = {
     count: number;
@@ -35,8 +40,13 @@ export const Teachers = () => {
     const { data, isLoading } = useTeacherList()
     const { close, open, isOpen } = useToggle();
     const { close: close2, open: open2, isOpen: isOpen2 } = useToggle();
-    const [ _ , setSearchParams ] = useSearchParams();
     const navigate = useNavigate();
+    const [editId, setEditId] = React.useState("");
+    const { mutate, isPending } = useDeleteTeacher();
+    const [remove, setRemove] = React.useState(false);
+    const [deleteId, setDeleteId] = React.useState("");
+    const client = useQueryClient();
+
 
 
     const teachers: Payment[] = React.useMemo(() => {
@@ -47,7 +57,7 @@ export const Teachers = () => {
             count: index + 1,
             isActive: item.isActive ? "Active" : "Blocked",
             name: item.name,
-            specification: item.specification,
+            specification: item.specifications.map((item) => item.name).join(", "),
             username: item.username,
         }));
     }, [data])
@@ -84,10 +94,22 @@ export const Teachers = () => {
                 const teacher = row.original;
                 const editTeacher = () => {
                     if (teacher.id) {
-                        setSearchParams({ editId: teacher.id })
+                        setEditId(teacher.id)
                         open2();
                     }
                 }
+                const deleteTeacher = () => {
+                    if (teacher.id) {
+                        mutate(teacher.id, {
+                            onSuccess: (res) => {
+                                toast.success(res.message.uz, { position: "bottom-right" });
+                                client.invalidateQueries({ queryKey: ["teacher_list"] });
+                            },
+                            onError: (error) => console.log(error),
+                        });
+                    }
+                }
+
                 return <>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
@@ -98,6 +120,7 @@ export const Teachers = () => {
                         </DropdownMenuTrigger >
                         <DropdownMenuContent align="end">
                             <DropdownMenuItem onClick={editTeacher}>Edit</DropdownMenuItem>
+                            <DropdownMenuItem onClick={deleteTeacher}>Delete</DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem
                                 onClick={() => navigate(`/app/admin/teacher/${teacher.id}`)}
@@ -111,7 +134,7 @@ export const Teachers = () => {
         },
     ]
     const closeEditModal = () => {
-        setSearchParams("");
+        setEditId("");
         close2();
     }
 
@@ -125,7 +148,13 @@ export const Teachers = () => {
                             <DialogTitle>Teacher Edit</DialogTitle>
                             <DialogDescription asChild>
                                 <div>
-                                    <TeacherFormEdit closeModal={close2} />
+                                    
+                                  
+                                        <TeacherFormWrapper
+                                            closeEditModal={closeEditModal}
+                                            id={editId}
+                                        />
+                                
                                 </div>
                             </DialogDescription>
                         </DialogHeader>

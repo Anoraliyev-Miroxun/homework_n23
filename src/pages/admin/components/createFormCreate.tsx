@@ -27,7 +27,8 @@ import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { useSearchParams } from "react-router-dom";
-import type { IResponse, TeacherList } from "../types";
+import type { IResponse, TeacherList } from "../type";
+import { useSpecification } from "../services/quvery/useSpisification";
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
@@ -39,8 +40,8 @@ const formSchema = z.object({
 export const TeacherForm = ({ closeModal }: { closeModal?: () => void }) => {
   const { mutate, isPending } = useCreateTeacher();
 
-  const [params, setSearchParams] = useSearchParams();
 
+  const { data, isLoading } = useSpecification();
   const client = useQueryClient();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -56,7 +57,7 @@ export const TeacherForm = ({ closeModal }: { closeModal?: () => void }) => {
 
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
-    mutate(data, {
+    mutate({ ...data, specification: [data.specification] }, {
       onSuccess: (res) => {
         console.log(res);
 
@@ -90,22 +91,34 @@ export const TeacherForm = ({ closeModal }: { closeModal?: () => void }) => {
               <FormItem>
                 <FormLabel>Specification</FormLabel>
                 <FormControl>
-                  <Select
-                    key={field.value}
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <SelectTrigger className="w-full text-black">
-                      <SelectValue
-                        className="text-black"
-                        placeholder="Specification"
-                      />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="mobile">React Native</SelectItem>
-                      <SelectItem value="java">Java</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  {
+                    isLoading ? (
+                      <Spinner />
+                    ) : (
+                      <Select
+                        key={field.value}
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <SelectTrigger className="w-full text-black">
+                          <SelectValue
+                            className="text-black"
+                            placeholder="Specification"
+                          />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {
+                            data?.data.map((i) => (
+                              <SelectItem key={i.id} value={i.id}>{i.name}</SelectItem>
+                            ))
+                          }
+
+                        </SelectContent>
+                      </Select>
+                    )
+
+                  }
+
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -140,26 +153,26 @@ export const TeacherForm = ({ closeModal }: { closeModal?: () => void }) => {
             </FormItem>
           )}
         />
-        
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <PasswordInput placeholder="1234" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-      
+
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <PasswordInput placeholder="1234" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
 
         <Button type="submit">
-          {isPending? <Spinner /> : ""} Submit
+          {isPending ? <Spinner /> : ""} Submit
         </Button>
       </form>
-    </Form>
+    </Form >
   );
 };

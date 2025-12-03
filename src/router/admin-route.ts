@@ -3,6 +3,7 @@ import { Teachers } from "../pages/admin/teachers/teachers.tsx"
 import { Profile } from "../pages/admin/profile.tsx"
 import { Setings } from "../pages/admin/setings.tsx"
 import { TeacherDeatil } from "@/pages/admin/teachers/teacher-deatil.tsx"
+import { Groups } from "@/pages/admin/groups/groups.tsx"
 
 
 
@@ -20,6 +21,14 @@ export default [
     {
         path: "teacher/:id",
         page: TeacherDeatil,
+    },
+    {
+        path: "groups",
+        page: Groups,
+    },
+    {
+        path: "group/:id",
+        page: Groups,
     },
     {
 

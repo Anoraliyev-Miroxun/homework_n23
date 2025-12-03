@@ -50,9 +50,9 @@ export const Login = () => {
     const form = useForm<z.infer<typeof formSearch>>({
         resolver: zodResolver(formSearch),
         defaultValues: {
-            username: "Diyor",
-            password: "Diyor123!",
-            role: "ADMIN"
+            username: "Admin1",
+            password: "Admin1!",
+            role: "Admin"
         }
     })
 
@@ -92,7 +92,7 @@ export const Login = () => {
                                                 <SelectValue placeholder="Role" />
                                             </SelectTrigger>
                                             <SelectContent>
-                                                <SelectItem value="ADMIN">Admin</SelectItem>
+                                                <SelectItem value="Admin">Admin</SelectItem>
                                                 <SelectItem value="Teacher">Teacher</SelectItem>
                                             </SelectContent>
                                         </Select>

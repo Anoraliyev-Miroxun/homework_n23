@@ -1,6 +1,6 @@
 import {useQuery} from "@tanstack/react-query";
 import { request } from "../../../../config/request.ts";
-import type { IResponse, TeacherList } from "../../types.ts";
+import type { IResponse, TeacherList } from "../../type.ts";
 
 export const useTeacherList=()=>{
     return useQuery(

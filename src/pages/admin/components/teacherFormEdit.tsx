@@ -4,7 +4,7 @@ import { useEditTeacher } from "../services/mutation/useEditTeacher";
 import { useQueryClient } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import type { IResponse, TeacherList } from "../types";
+import type { IResponse, TeacherDetailT, TeacherList } from "../type";
 import React from "react";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@radix-ui/react-select";
@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
+import { useSpecification } from "../services/quvery/useSpisification";
 
 
 const formSchema = z.object({
@@ -23,42 +24,42 @@ const formSchema = z.object({
     name: z.string().min(2).max(50),
 });
 
-export const TeacherFormEdit = ({ closeModal }: { closeModal: () => void }) => {
-    const { mutate, isPending } = useEditTeacher();
-    const [params, setSearchParams] = useSearchParams();
+interface FormProps {
+    defaultValueData?: TeacherDetailT;
+    closeModal?: () => void;
+    teacherId?: string;
+}
+
+export const TeacherFormEdit = ({
+    closeModal,
+    defaultValueData,
+    teacherId,
+}: FormProps) => {
+    const { mutate, isPending } = useEditTeacher(teacherId as string);
     const client = useQueryClient();
+    const { data, isLoading } = useSpecification()
 
     const form = useForm<z.infer<typeof formSchema>>({
 
         resolver: zodResolver(formSchema),
         defaultValues: {
-            username: "",
+            username: defaultValueData?.data?.username || "",
+            specification: defaultValueData?.data?.specifications[0]?.id || "",
+            name: defaultValueData?.data?.name || "",
             password: "",
-            specification: "",
-            name: "",
         },
     });
 
-    React.useEffect(() => {
-        if (params.get("editId")) {
-            const teacher = client.getQueryData<IResponse<TeacherList>>([
-                "teacher_list",
-            ]);
-            if (teacher) {
-                const data = teacher.data.find(
-                    (item) => item.id === params.get("editId")
-                );
-                form.reset({ ...data });
-            }
-        }
-    }, [params.get("editId")]);
+
 
     const onSubmitttt = (data: z.infer<typeof formSchema>) => {
-        if (params.get("editId")) {
-            return mutate(data, {
+        if (defaultValueData) {
+            return mutate({
+                name: data.name,
+                username: data.username,
+                specification: [data.specification]
+            }, {
                 onSuccess: (res) => {
-                    setSearchParams({});
-
                     toast.success(res.message.uz, {
                         position: "bottom-right",
                     });
@@ -91,24 +92,34 @@ export const TeacherFormEdit = ({ closeModal }: { closeModal: () => void }) => {
                             <FormItem>
                                 <FormLabel>Specification</FormLabel>
                                 <FormControl>
-                                    <Select
-                                        key={field.value}
-                                        onValueChange={field.onChange}
-                                        defaultValue={field.value}
-                                    >
-                                        <SelectTrigger className="w-full text-black">
+                                    {
+                                        isLoading ? (
+                                            <Spinner />
+                                        ) : (
+                                            <Select
+                                                key={field.value}
+                                                onValueChange={field.onChange}
+                                                defaultValue={field.value}
+                                            >
+                                                <SelectTrigger className="w-full text-black">
 
-                                            <SelectValue
+                                                    <SelectValue
 
-                                                className="text-black"
-                                                placeholder="Specification"
-                                            />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="mobile">React Native</SelectItem>
-                                            <SelectItem value="java">Java</SelectItem>
-                                        </SelectContent>
-                                    </Select>
+                                                        className="text-black"
+                                                        placeholder="Specification"
+                                                    />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    {
+                                                        data?.data.map((i) => (
+                                                            <SelectItem key={i.id} value={i.id}>{i.name}</SelectItem>
+                                                        ))
+                                                    }
+
+                                                </SelectContent>
+                                            </Select>
+                                        )
+                                    }
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
