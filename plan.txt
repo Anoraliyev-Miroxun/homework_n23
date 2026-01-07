@@ -1,0 +1,9 @@
+
+
+UI => Shad cn
+Css=> tailwind Css
+
+server=> tanstack
+axios
+react-router-dom
+
